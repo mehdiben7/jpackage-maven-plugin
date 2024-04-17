@@ -2,10 +2,13 @@
 
 Maven plugin for [jpackage](https://openjdk.java.net/jeps/343).
 
-[![BSD-2 license](https://img.shields.io/badge/License-BSD--2-informational.svg)](LICENSE)
-[![Licence](https://img.shields.io/badge/Java-1.8-orange?logo=java)](https://www.oracle.com/java/technologies/javase-downloads.html)
-[![Maven Central](http://img.shields.io/maven-central/v/org.panteleyev/jpackage-maven-plugin)](https://search.maven.org/search?q=g:org.panteleyev%20AND%20a:jpackage-maven-plugin)
-
-[Plugin Documentation](https://petr-panteleyev.github.io/jpackage-maven-plugin/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 
 [Packaging Tool User's Guide](https://docs.oracle.com/en/java/javase/21/jpackage/packaging-tool-user-guide.pdf)
+
+## LICENSE
+
+This is a fork of [org.panteleyev:package-maven-plugin](https://github.com/petr-panteleyev/jpackage-maven-plugin). The original project is license under the [BSD-2-Clause license](ORIGINAL_LICENSE). 
+
+This project is licensed under the [MIT License](LICENSE)
