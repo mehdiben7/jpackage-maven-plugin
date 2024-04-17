@@ -4,36 +4,30 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.panteleyev</groupId>
+    <groupId>com.mehdiben</groupId>
     <artifactId>jpackage-maven-plugin</artifactId>
     <version>1.6.3</version>
     <packaging>maven-plugin</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>JPackage Maven Plugin</description>
-    <url>https://github.com/petr-panteleyev/jpackage-maven-plugin</url>
+    <url>https://github.com/mehdiben7/jpackage-maven-plugin</url>
 
     <licenses>
         <license>
-            <name>The 2-Clause BSD License</name>
-            <url>https://opensource.org/licenses/BSD-2-Clause</url>
+            <name>MIT License</name>
+            <url>https://opensource.org/license/MIT</url>
         </license>
     </licenses>
 
     <developers>
         <developer>
-            <name>Petr Panteleyev</name>
-            <email>petr@panteleyev.org</email>
-            <organization>panteleyev.org</organization>
-            <organizationUrl>https://github.com/petr-panteleyev</organizationUrl>
+            <name>Mehdi Benouhoud</name>
+            <email>mehdi.benouhoud7@gmail.com</email>
+            <organization>mehdiben.com</organization>
+            <organizationUrl>https://github.com/mehdiben7</organizationUrl>
         </developer>
     </developers>
-
-    <scm>
-        <connection>scm:git:git://github.com/petr-panteleyev/jpackage-maven-plugin.git</connection>
-        <developerConnection>scm:git:ssh://github.com:petr-panteleyev/jpackage-maven-plugin.git</developerConnection>
-        <url>https://github.com/petr-panteleyev/jpackage-maven-plugin/tree/master</url>
-    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -89,25 +83,25 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-toolchains-plugin</artifactId>
-                <version>${mavenToolchainPluginVersion}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>toolchain</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <toolchains>
-                        <jdk>
-                            <version>${maven.compiler.target}</version>
-                        </jdk>
-                    </toolchains>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-toolchains-plugin</artifactId>-->
+<!--                <version>${mavenToolchainPluginVersion}</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>toolchain</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <toolchains>-->
+<!--                        <jdk>-->
+<!--                            <version>${maven.compiler.target}</version>-->
+<!--                        </jdk>-->
+<!--                    </toolchains>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

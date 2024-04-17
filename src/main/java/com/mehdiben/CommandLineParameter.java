@@ -2,11 +2,11 @@
  Copyright © 2022 Petr Panteleyev <petr@panteleyev.org>
  SPDX-License-Identifier: BSD-2-Clause
  */
-package org.panteleyev.jpackage;
+package com.mehdiben;
 
 import org.apache.maven.plugin.MojoFailureException;
 
-import static org.panteleyev.jpackage.JPackageMojo.EXECUTABLE;
+import static com.mehdiben.JPackageMojo.EXECUTABLE;
 
 enum CommandLineParameter {
     NAME("--name"),

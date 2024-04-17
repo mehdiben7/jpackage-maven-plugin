@@ -2,7 +2,7 @@
  Copyright © 2021 Petr Panteleyev <petr@panteleyev.org>
  SPDX-License-Identifier: BSD-2-Clause
  */
-package org.panteleyev.jpackage;
+package com.mehdiben;
 
 import org.apache.maven.plugin.MojoFailureException;
 import java.io.File;

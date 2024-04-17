@@ -2,7 +2,7 @@
  Copyright © 2020-2024 Petr Panteleyev <petr@panteleyev.org>
  SPDX-License-Identifier: BSD-2-Clause
  */
-package org.panteleyev.jpackage;
+package com.mehdiben;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
@@ -21,72 +21,6 @@ import org.apache.maven.toolchain.ToolchainManager;
 import java.io.File;
 import java.util.List;
 import java.util.Optional;
-
-import static org.panteleyev.jpackage.CommandLineParameter.ABOUT_URL;
-import static org.panteleyev.jpackage.CommandLineParameter.ADD_LAUNCHER;
-import static org.panteleyev.jpackage.CommandLineParameter.ADD_MODULES;
-import static org.panteleyev.jpackage.CommandLineParameter.APP_CONTENT;
-import static org.panteleyev.jpackage.CommandLineParameter.APP_IMAGE;
-import static org.panteleyev.jpackage.CommandLineParameter.APP_VERSION;
-import static org.panteleyev.jpackage.CommandLineParameter.ARGUMENTS;
-import static org.panteleyev.jpackage.CommandLineParameter.BIND_SERVICES;
-import static org.panteleyev.jpackage.CommandLineParameter.COPYRIGHT;
-import static org.panteleyev.jpackage.CommandLineParameter.DESCRIPTION;
-import static org.panteleyev.jpackage.CommandLineParameter.DESTINATION;
-import static org.panteleyev.jpackage.CommandLineParameter.FILE_ASSOCIATIONS;
-import static org.panteleyev.jpackage.CommandLineParameter.ICON;
-import static org.panteleyev.jpackage.CommandLineParameter.INPUT;
-import static org.panteleyev.jpackage.CommandLineParameter.INSTALL_DIR;
-import static org.panteleyev.jpackage.CommandLineParameter.JAVA_OPTIONS;
-import static org.panteleyev.jpackage.CommandLineParameter.JLINK_OPTIONS;
-import static org.panteleyev.jpackage.CommandLineParameter.LAUNCHER_AS_SERVICE;
-import static org.panteleyev.jpackage.CommandLineParameter.LICENSE_FILE;
-import static org.panteleyev.jpackage.CommandLineParameter.LINUX_APP_CATEGORY;
-import static org.panteleyev.jpackage.CommandLineParameter.LINUX_APP_RELEASE;
-import static org.panteleyev.jpackage.CommandLineParameter.LINUX_DEB_MAINTAINER;
-import static org.panteleyev.jpackage.CommandLineParameter.LINUX_MENU_GROUP;
-import static org.panteleyev.jpackage.CommandLineParameter.LINUX_PACKAGE_DEPS;
-import static org.panteleyev.jpackage.CommandLineParameter.LINUX_PACKAGE_NAME;
-import static org.panteleyev.jpackage.CommandLineParameter.LINUX_RPM_LICENSE_TYPE;
-import static org.panteleyev.jpackage.CommandLineParameter.LINUX_SHORTCUT;
-import static org.panteleyev.jpackage.CommandLineParameter.MAC_APP_CATEGORY;
-import static org.panteleyev.jpackage.CommandLineParameter.MAC_APP_STORE;
-import static org.panteleyev.jpackage.CommandLineParameter.MAC_BUNDLE_SIGNING_PREFIX;
-import static org.panteleyev.jpackage.CommandLineParameter.MAC_DMG_CONTENT;
-import static org.panteleyev.jpackage.CommandLineParameter.MAC_ENTITLEMENTS;
-import static org.panteleyev.jpackage.CommandLineParameter.MAC_PACKAGE_IDENTIFIER;
-import static org.panteleyev.jpackage.CommandLineParameter.MAC_PACKAGE_NAME;
-import static org.panteleyev.jpackage.CommandLineParameter.MAC_PACKAGE_SIGNING_PREFIX;
-import static org.panteleyev.jpackage.CommandLineParameter.MAC_SIGN;
-import static org.panteleyev.jpackage.CommandLineParameter.MAC_SIGNING_KEYCHAIN;
-import static org.panteleyev.jpackage.CommandLineParameter.MAC_SIGNING_KEY_USER_NAME;
-import static org.panteleyev.jpackage.CommandLineParameter.MAIN_CLASS;
-import static org.panteleyev.jpackage.CommandLineParameter.MAIN_JAR;
-import static org.panteleyev.jpackage.CommandLineParameter.MODULE;
-import static org.panteleyev.jpackage.CommandLineParameter.MODULE_PATH;
-import static org.panteleyev.jpackage.CommandLineParameter.NAME;
-import static org.panteleyev.jpackage.CommandLineParameter.RESOURCE_DIR;
-import static org.panteleyev.jpackage.CommandLineParameter.RUNTIME_IMAGE;
-import static org.panteleyev.jpackage.CommandLineParameter.TEMP;
-import static org.panteleyev.jpackage.CommandLineParameter.TYPE;
-import static org.panteleyev.jpackage.CommandLineParameter.VENDOR;
-import static org.panteleyev.jpackage.CommandLineParameter.VERBOSE;
-import static org.panteleyev.jpackage.CommandLineParameter.WIN_CONSOLE;
-import static org.panteleyev.jpackage.CommandLineParameter.WIN_DIR_CHOOSER;
-import static org.panteleyev.jpackage.CommandLineParameter.WIN_HELP_URL;
-import static org.panteleyev.jpackage.CommandLineParameter.WIN_MENU;
-import static org.panteleyev.jpackage.CommandLineParameter.WIN_MENU_GROUP;
-import static org.panteleyev.jpackage.CommandLineParameter.WIN_PER_USER_INSTALL;
-import static org.panteleyev.jpackage.CommandLineParameter.WIN_SHORTCUT;
-import static org.panteleyev.jpackage.CommandLineParameter.WIN_SHORTCUT_PROMPT;
-import static org.panteleyev.jpackage.CommandLineParameter.WIN_UPDATE_URL;
-import static org.panteleyev.jpackage.CommandLineParameter.WIN_UPGRADE_UUID;
-import static org.panteleyev.jpackage.OsUtil.isLinux;
-import static org.panteleyev.jpackage.OsUtil.isMac;
-import static org.panteleyev.jpackage.OsUtil.isWindows;
-import static org.panteleyev.jpackage.StringUtil.escape;
-import static org.panteleyev.jpackage.StringUtil.isEmpty;
-import static org.panteleyev.jpackage.StringUtil.isNotEmpty;
 
 /**
  * <p>Generates application package.</p>
@@ -720,7 +654,7 @@ public class JPackageMojo extends AbstractMojo {
         getLog().debug("Looking for " + EXECUTABLE + " in " + jdkHome);
 
         String executable = jdkHome + File.separator + "bin" + File.separator + EXECUTABLE;
-        if (isWindows()) {
+        if (OsUtil.isWindows()) {
             executable = executable + ".exe";
         }
 
@@ -758,10 +692,10 @@ public class JPackageMojo extends AbstractMojo {
         try {
             int exitCode = CommandLineUtils.executeCommandLine(commandline, out, err);
 
-            String output = (isEmpty(out.getOutput()) ? null : '\n' + out.getOutput().trim());
+            String output = (StringUtil.isEmpty(out.getOutput()) ? null : '\n' + out.getOutput().trim());
 
             if (exitCode != 0) {
-                if (isNotEmpty(output)) {
+                if (StringUtil.isNotEmpty(output)) {
                     for (String line : output.split("\n")) {
                         getLog().error(line);
                     }
@@ -770,7 +704,7 @@ public class JPackageMojo extends AbstractMojo {
                 StringBuilder msg = new StringBuilder("\nExit code: ")
                         .append(exitCode);
                 String errOutput = err.getOutput();
-                if (isNotEmpty(errOutput)) {
+                if (StringUtil.isNotEmpty(errOutput)) {
                     msg.append(" - ").append(errOutput);
                 }
                 msg.append('\n');
@@ -778,7 +712,7 @@ public class JPackageMojo extends AbstractMojo {
 
                 throw new MojoExecutionException(msg.toString());
             } else {
-                if (isNotEmpty(output)) {
+                if (StringUtil.isNotEmpty(output)) {
                     for (String outputLine : output.split("\n")) {
                         getLog().info(outputLine);
                     }
@@ -793,71 +727,71 @@ public class JPackageMojo extends AbstractMojo {
         getLog().info("jpackage options:");
 
         Commandline commandline = new Commandline();
-        addMandatoryParameter(commandline, NAME, name, version);
-        addMandatoryParameter(commandline, DESTINATION, destination, false, version);
-        addParameter(commandline, VERBOSE, verbose, version);
-        addParameter(commandline, TYPE, type, version);
-        addParameter(commandline, APP_VERSION, appVersion, version);
-        addParameter(commandline, COPYRIGHT, copyright, version);
-        addParameter(commandline, DESCRIPTION, description, version);
-        addParameter(commandline, RUNTIME_IMAGE, runtimeImage, true, version);
-        addParameter(commandline, INPUT, input, true, version);
-        addParameter(commandline, INSTALL_DIR, installDir, version);
-        addParameter(commandline, RESOURCE_DIR, resourceDir, true, version);
-        addParameter(commandline, VENDOR, vendor, version);
-        addParameter(commandline, MODULE, module, version);
-        addParameter(commandline, MAIN_CLASS, mainClass, version);
-        addParameter(commandline, MAIN_JAR, mainJar, version);
-        addParameter(commandline, TEMP, temp, false, version);
-        addParameter(commandline, ICON, icon, true, version);
-        addParameter(commandline, LICENSE_FILE, licenseFile, true, version);
-        addParameter(commandline, ABOUT_URL, aboutUrl, version);
-        addParameter(commandline, APP_IMAGE, appImage, true, version);
-        addParameter(commandline, LAUNCHER_AS_SERVICE, launcherAsService, version);
+        addMandatoryParameter(commandline, CommandLineParameter.NAME, name, version);
+        addMandatoryParameter(commandline, CommandLineParameter.DESTINATION, destination, false, version);
+        addParameter(commandline, CommandLineParameter.VERBOSE, verbose, version);
+        addParameter(commandline, CommandLineParameter.TYPE, type, version);
+        addParameter(commandline, CommandLineParameter.APP_VERSION, appVersion, version);
+        addParameter(commandline, CommandLineParameter.COPYRIGHT, copyright, version);
+        addParameter(commandline, CommandLineParameter.DESCRIPTION, description, version);
+        addParameter(commandline, CommandLineParameter.RUNTIME_IMAGE, runtimeImage, true, version);
+        addParameter(commandline, CommandLineParameter.INPUT, input, true, version);
+        addParameter(commandline, CommandLineParameter.INSTALL_DIR, installDir, version);
+        addParameter(commandline, CommandLineParameter.RESOURCE_DIR, resourceDir, true, version);
+        addParameter(commandline, CommandLineParameter.VENDOR, vendor, version);
+        addParameter(commandline, CommandLineParameter.MODULE, module, version);
+        addParameter(commandline, CommandLineParameter.MAIN_CLASS, mainClass, version);
+        addParameter(commandline, CommandLineParameter.MAIN_JAR, mainJar, version);
+        addParameter(commandline, CommandLineParameter.TEMP, temp, false, version);
+        addParameter(commandline, CommandLineParameter.ICON, icon, true, version);
+        addParameter(commandline, CommandLineParameter.LICENSE_FILE, licenseFile, true, version);
+        addParameter(commandline, CommandLineParameter.ABOUT_URL, aboutUrl, version);
+        addParameter(commandline, CommandLineParameter.APP_IMAGE, appImage, true, version);
+        addParameter(commandline, CommandLineParameter.LAUNCHER_AS_SERVICE, launcherAsService, version);
 
         if (modulePaths != null) {
             for (File modulePath : modulePaths) {
-                addParameter(commandline, MODULE_PATH, modulePath, true, version);
+                addParameter(commandline, CommandLineParameter.MODULE_PATH, modulePath, true, version);
             }
         }
 
         if (addModules != null && !addModules.isEmpty()) {
-            addParameter(commandline, ADD_MODULES, String.join(",", addModules), version);
+            addParameter(commandline, CommandLineParameter.ADD_MODULES, String.join(",", addModules), version);
         }
 
-        addParameter(commandline, BIND_SERVICES, bindServices, version);
+        addParameter(commandline, CommandLineParameter.BIND_SERVICES, bindServices, version);
         if (jLinkOptions != null && !jLinkOptions.isEmpty()) {
-            addParameter(commandline, JLINK_OPTIONS, String.join(" ", jLinkOptions), version);
+            addParameter(commandline, CommandLineParameter.JLINK_OPTIONS, String.join(" ", jLinkOptions), version);
         }
 
         if (javaOptions != null) {
             for (String option : javaOptions) {
-                addParameter(commandline, JAVA_OPTIONS, escape(option), version);
+                addParameter(commandline, CommandLineParameter.JAVA_OPTIONS, StringUtil.escape(option), version);
             }
         }
 
         if (arguments != null) {
             for (String arg : arguments) {
-                addParameter(commandline, ARGUMENTS, escape(arg), version);
+                addParameter(commandline, CommandLineParameter.ARGUMENTS, StringUtil.escape(arg), version);
             }
         }
 
         if (fileAssociations != null) {
             for (File association : fileAssociations) {
-                addParameter(commandline, FILE_ASSOCIATIONS, association, true, version);
+                addParameter(commandline, CommandLineParameter.FILE_ASSOCIATIONS, association, true, version);
             }
         }
 
         if (appContentPaths != null) {
             for (File appContent : appContentPaths) {
-                addParameter(commandline, APP_CONTENT, appContent, true, version);
+                addParameter(commandline, CommandLineParameter.APP_CONTENT, appContent, true, version);
             }
         }
 
         if (launchers != null) {
             for (Launcher launcher : launchers) {
                 launcher.validate();
-                addParameter(commandline, ADD_LAUNCHER,
+                addParameter(commandline, CommandLineParameter.ADD_LAUNCHER,
                         launcher.getName() + "=" + launcher.getFile().getAbsolutePath(), version);
             }
         }
@@ -868,42 +802,42 @@ public class JPackageMojo extends AbstractMojo {
             }
         }
 
-        if (isMac()) {
-            addParameter(commandline, MAC_PACKAGE_IDENTIFIER, macPackageIdentifier, version);
-            addParameter(commandline, MAC_PACKAGE_NAME, macPackageName, version);
-            addParameter(commandline, MAC_BUNDLE_SIGNING_PREFIX, macBundleSigningPrefix, version);
-            addParameter(commandline, MAC_PACKAGE_SIGNING_PREFIX, macPackageSigningPrefix, version);
-            addParameter(commandline, MAC_SIGN, macSign, version);
-            addParameter(commandline, MAC_SIGNING_KEYCHAIN, macSigningKeychain, true, version);
-            addParameter(commandline, MAC_SIGNING_KEY_USER_NAME, macSigningKeyUserName, version);
-            addParameter(commandline, MAC_APP_STORE, macAppStore, version);
-            addParameter(commandline, MAC_ENTITLEMENTS, macEntitlements, true, version);
-            addParameter(commandline, MAC_APP_CATEGORY, macAppCategory, version);
+        if (OsUtil.isMac()) {
+            addParameter(commandline, CommandLineParameter.MAC_PACKAGE_IDENTIFIER, macPackageIdentifier, version);
+            addParameter(commandline, CommandLineParameter.MAC_PACKAGE_NAME, macPackageName, version);
+            addParameter(commandline, CommandLineParameter.MAC_BUNDLE_SIGNING_PREFIX, macBundleSigningPrefix, version);
+            addParameter(commandline, CommandLineParameter.MAC_PACKAGE_SIGNING_PREFIX, macPackageSigningPrefix, version);
+            addParameter(commandline, CommandLineParameter.MAC_SIGN, macSign, version);
+            addParameter(commandline, CommandLineParameter.MAC_SIGNING_KEYCHAIN, macSigningKeychain, true, version);
+            addParameter(commandline, CommandLineParameter.MAC_SIGNING_KEY_USER_NAME, macSigningKeyUserName, version);
+            addParameter(commandline, CommandLineParameter.MAC_APP_STORE, macAppStore, version);
+            addParameter(commandline, CommandLineParameter.MAC_ENTITLEMENTS, macEntitlements, true, version);
+            addParameter(commandline, CommandLineParameter.MAC_APP_CATEGORY, macAppCategory, version);
             if (macDmgContentPaths != null) {
                 for (File content : macDmgContentPaths) {
-                    addParameter(commandline, MAC_DMG_CONTENT, content, true, version);
+                    addParameter(commandline, CommandLineParameter.MAC_DMG_CONTENT, content, true, version);
                 }
             }
-        } else if (isWindows()) {
-            addParameter(commandline, WIN_CONSOLE, winConsole, version);
-            addParameter(commandline, WIN_DIR_CHOOSER, winDirChooser, version);
-            addParameter(commandline, WIN_HELP_URL, winHelpUrl, version);
-            addParameter(commandline, WIN_MENU, winMenu, version);
-            addParameter(commandline, WIN_MENU_GROUP, winMenuGroup, version);
-            addParameter(commandline, WIN_PER_USER_INSTALL, winPerUserInstall, version);
-            addParameter(commandline, WIN_SHORTCUT, winShortcut, version);
-            addParameter(commandline, WIN_SHORTCUT_PROMPT, winShortcutPrompt, version);
-            addParameter(commandline, WIN_UPDATE_URL, winUpdateUrl, version);
-            addParameter(commandline, WIN_UPGRADE_UUID, winUpgradeUuid, version);
-        } else if (isLinux()) {
-            addParameter(commandline, LINUX_PACKAGE_NAME, linuxPackageName, version);
-            addParameter(commandline, LINUX_DEB_MAINTAINER, linuxDebMaintainer, version);
-            addParameter(commandline, LINUX_MENU_GROUP, linuxMenuGroup, version);
-            addParameter(commandline, LINUX_PACKAGE_DEPS, linuxPackageDeps, version);
-            addParameter(commandline, LINUX_RPM_LICENSE_TYPE, linuxRpmLicenseType, version);
-            addParameter(commandline, LINUX_APP_RELEASE, linuxAppRelease, version);
-            addParameter(commandline, LINUX_APP_CATEGORY, linuxAppCategory, version);
-            addParameter(commandline, LINUX_SHORTCUT, linuxShortcut, version);
+        } else if (OsUtil.isWindows()) {
+            addParameter(commandline, CommandLineParameter.WIN_CONSOLE, winConsole, version);
+            addParameter(commandline, CommandLineParameter.WIN_DIR_CHOOSER, winDirChooser, version);
+            addParameter(commandline, CommandLineParameter.WIN_HELP_URL, winHelpUrl, version);
+            addParameter(commandline, CommandLineParameter.WIN_MENU, winMenu, version);
+            addParameter(commandline, CommandLineParameter.WIN_MENU_GROUP, winMenuGroup, version);
+            addParameter(commandline, CommandLineParameter.WIN_PER_USER_INSTALL, winPerUserInstall, version);
+            addParameter(commandline, CommandLineParameter.WIN_SHORTCUT, winShortcut, version);
+            addParameter(commandline, CommandLineParameter.WIN_SHORTCUT_PROMPT, winShortcutPrompt, version);
+            addParameter(commandline, CommandLineParameter.WIN_UPDATE_URL, winUpdateUrl, version);
+            addParameter(commandline, CommandLineParameter.WIN_UPGRADE_UUID, winUpgradeUuid, version);
+        } else if (OsUtil.isLinux()) {
+            addParameter(commandline, CommandLineParameter.LINUX_PACKAGE_NAME, linuxPackageName, version);
+            addParameter(commandline, CommandLineParameter.LINUX_DEB_MAINTAINER, linuxDebMaintainer, version);
+            addParameter(commandline, CommandLineParameter.LINUX_MENU_GROUP, linuxMenuGroup, version);
+            addParameter(commandline, CommandLineParameter.LINUX_PACKAGE_DEPS, linuxPackageDeps, version);
+            addParameter(commandline, CommandLineParameter.LINUX_RPM_LICENSE_TYPE, linuxRpmLicenseType, version);
+            addParameter(commandline, CommandLineParameter.LINUX_APP_RELEASE, linuxAppRelease, version);
+            addParameter(commandline, CommandLineParameter.LINUX_APP_CATEGORY, linuxAppCategory, version);
+            addParameter(commandline, CommandLineParameter.LINUX_SHORTCUT, linuxShortcut, version);
         }
 
         return commandline;
@@ -1052,7 +986,7 @@ public class JPackageMojo extends AbstractMojo {
             if (exitCode != 0) {
                 return 0;
             } else {
-                String output = isEmpty(out.getOutput()) ? "0" : out.getOutput().trim();
+                String output = StringUtil.isEmpty(out.getOutput()) ? "0" : out.getOutput().trim();
                 int dotIndex = output.indexOf(".");
                 String versionString = dotIndex == -1 ? output : output.substring(0, dotIndex);
                 return Integer.parseInt(versionString);
