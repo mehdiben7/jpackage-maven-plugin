@@ -52,7 +52,7 @@
         <mavenSitePluginVersion>3.12.1</mavenSitePluginVersion>
         <mavenProjectInfoReportsPluginVersion>3.5.0</mavenProjectInfoReportsPluginVersion>
         <mavenSourcePluginVersion>3.2.0</mavenSourcePluginVersion>
-        <mavenGpgPluginVersion>1.6</mavenGpgPluginVersion>
+        <mavenGpgPluginVersion>3.2.3</mavenGpgPluginVersion>
         <nexusStagingMavenPlugin>1.6.8</nexusStagingMavenPlugin>
     </properties>
 
