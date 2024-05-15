@@ -42,7 +42,7 @@
         <mavenToolchainPluginVersion>3.1.0</mavenToolchainPluginVersion>
         <mavenCompilerPluginVersion>3.13.0</mavenCompilerPluginVersion>
         <mavenSurefirePluginVersion>3.2.5</mavenSurefirePluginVersion>
-        <mavenPluginPluginVersion>3.12.0</mavenPluginPluginVersion>
+        <mavenPluginPluginVersion>3.13.0</mavenPluginPluginVersion>
         <mavenSitePluginVersion>3.12.1</mavenSitePluginVersion>
         <mavenProjectInfoReportsPluginVersion>3.5.0</mavenProjectInfoReportsPluginVersion>
         <mavenSourcePluginVersion>3.3.1</mavenSourcePluginVersion>
