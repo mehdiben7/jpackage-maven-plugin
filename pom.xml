@@ -36,7 +36,7 @@
         <!-- Dependencies -->
         <mavenProjectVersion>2.2.1</mavenProjectVersion>
         <mavenCoreVersion>3.9.7</mavenCoreVersion>
-        <mavenPluginApiVersion>3.9.6</mavenPluginApiVersion>
+        <mavenPluginApiVersion>3.9.7</mavenPluginApiVersion>
         <jUnitVersion>5.10.2</jUnitVersion>
         <!-- Plugins -->
         <mavenToolchainPluginVersion>3.1.0</mavenToolchainPluginVersion>
