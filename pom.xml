@@ -44,7 +44,7 @@
         <mavenSurefirePluginVersion>3.2.5</mavenSurefirePluginVersion>
         <mavenPluginPluginVersion>3.13.1</mavenPluginPluginVersion>
         <mavenSitePluginVersion>3.12.1</mavenSitePluginVersion>
-        <mavenProjectInfoReportsPluginVersion>3.5.0</mavenProjectInfoReportsPluginVersion>
+        <mavenProjectInfoReportsPluginVersion>3.6.0</mavenProjectInfoReportsPluginVersion>
         <mavenSourcePluginVersion>3.3.1</mavenSourcePluginVersion>
         <mavenGpgPluginVersion>3.2.4</mavenGpgPluginVersion>
         <nexusStagingMavenPlugin>1.7.0</nexusStagingMavenPlugin>
