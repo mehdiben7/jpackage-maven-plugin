@@ -41,7 +41,7 @@
         <!-- Plugins -->
         <mavenToolchainPluginVersion>3.1.0</mavenToolchainPluginVersion>
         <mavenCompilerPluginVersion>3.13.0</mavenCompilerPluginVersion>
-        <mavenSurefirePluginVersion>3.2.5</mavenSurefirePluginVersion>
+        <mavenSurefirePluginVersion>3.3.0</mavenSurefirePluginVersion>
         <mavenPluginPluginVersion>3.13.1</mavenPluginPluginVersion>
         <mavenSitePluginVersion>3.12.1</mavenSitePluginVersion>
         <mavenProjectInfoReportsPluginVersion>3.5.0</mavenProjectInfoReportsPluginVersion>
